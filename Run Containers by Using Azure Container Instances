@@ -1,0 +1,15 @@
+#Step 1: 
+rg=774-4ee71f79-run-containers-by-using-azure-contain
+name=acrlabdemo
+acr="${name}${RANDOM}"
+
+az acr create \
+  --resource-group "$rg" \
+  --name "$acr" \
+  --sku Basic
+
+#Step 2: Build and Push a Docker Image
+az acr build \
+  --image sample/hello-world:v1 \
+  --registry "$acr" \
+  --file Dockerfile .
